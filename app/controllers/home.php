@@ -12,6 +12,10 @@ class Home extends Controller{
         echo "<h1>index of home</h1>";
 
     }
+    function register(){
+        $this->view("/register");
+
+    }
 
 }
 ?>
