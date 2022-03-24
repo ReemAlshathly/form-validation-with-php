@@ -1,12 +1,27 @@
 <?php
+require_once 'uservalidator.php';
 require_once 'controller.php';
 class Users extends Controller
 {
+    public $errors = [];
     public function __construct()
     {
 
         echo "<h1>inside users controller construct</h1>";
+
+
+  if(isset($_POST['submit'])){
+    // validate entries
+    $validation = new Uservalidator($_POST);
+    $errors = $validation->validateForm();
+if(count($errors)>0){
+$this->view('register', $errors);
+}
+    // if errors is empty --> save data to db
+  }
+
     }
+    
     function index()
     {
 
@@ -46,32 +61,18 @@ class Users extends Controller
                $message="";
                if($u->insert($user_data)){
                    $type='success';
-                    $message="user ";
+                    $message="user created successful";
                     $this->view('feedback',array('type'=>$type,'message'=>$message));
 
                 }
-               else  {
-                  
+               else {
                    $type='danger';
                    $message="can not create user please check your data ";
                
                    $this->view('register',array('type'=>$type,'message'=>$message,'form_values'=>$_POST));
 
                 }
-           }
-        //    else   if($userName==""||$userName > 10|| $userName<3 &&$password!=""&&$email!=""){
-        //     $type='danger';
-        //     $message="your name must be >3and <10 ";
-        //    }else   if($password=="" || $password<6){
-        //     $type='danger';
-        //     $message="your pass must be >5 ";
-
-        //    }
-        //    else   if($email=="" || $email<6){
-        //     $type='danger';
-        //     $message="your email must be >5 ";
-
-        //    }
+           } 
 
         }
         

@@ -5,7 +5,7 @@ class User{
 
     public function __construct(){
 
-        $dsn='mysql:hostname=localhost;dbname=super-blog';
+        $dsn='mysql:hostname=localhost;dbname=mvc_demo';
         $username='root';
         $password='';
         $this->pdo=new PDO($dsn,$username,$password,array(
